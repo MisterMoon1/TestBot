@@ -1,0 +1,12 @@
+import telebot
+bot = telebot.TeleBot('1459147997:AAGg2xt8lV19BKnfwFUZJ9kC3ukTfhmoCGs')
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+    bot.reply_to(message, f'Привет, {message.from_user.first_name}, меня зовут Клара и я хочу стать лучше. Пройдите, пожалуйста, небольшое тестирование, чтобы я понимала, что можно улучшить.')
+@bot.message_handler(content_types=['text'])
+def get_text_messages(message):
+    if message.text.lower() == 'Привет':
+        bot.send_message(message.from_user.id, f'Привет, {message.from_user.first_name}, меня зовут Клара и я хочу стать лучше. n\Пройдите, пожалуйста, небольшое тестирование, чтобы я понимала, что можно улучшить.')
+    else:
+        bot.send_message(message.from_user.id, 'Не понимаю, что это значит.')
+bot.polling(none_stop=True)
